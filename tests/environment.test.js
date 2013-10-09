@@ -2,7 +2,8 @@
     "use strict";
 
     var assert = require("referee").assert,
-        sinon = require("sinon");
+        sinon = require("sinon"),
+        cradle = require("cradle");
 
     describe('Mocha', function () {
         it('asserts works', function () {
@@ -15,6 +16,16 @@
             callable();
 
             assert(callable.calledTwice);
+        });
+    });
+
+    describe('CouchDb', function() {
+        it('is available', function () {
+            var c = new(cradle.Connection)();
+            c.database('_users').get('', function (err, doc) {
+                assert.same('_users', doc.db_name);
+                assert.isNull(err);
+            });
         });
     });
 }());

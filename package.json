@@ -10,6 +10,7 @@
     "mocha": "1.9.x",
     "sinon": "~1.6.0",
     "referee": "~1.0.1",
+    "cradle": "~0.6.6",
     "jshint": "~2.0.1"
   },
   "dependencies": {
