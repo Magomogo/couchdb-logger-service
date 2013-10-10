@@ -2,6 +2,7 @@
     "use strict";
 
     var _ = require('underscore'),
+        http = require("http"),
         assert = require("assert"),
         cradle = require("cradle"),
         async = require("async"),
@@ -104,6 +105,37 @@
                             });
                         }
                     ], done);
+                }
+            );
+        });
+
+        it('lists log records as HTML', function (done) {
+            async.series([
+                    function (callback) {
+                        writeLogEntry({message: 'First one', channel: 'test'}, callback);
+                    },
+                    function (callback) {
+                        setTimeout(callback, 100);
+                    },
+                    function (callback) {
+                        writeLogEntry({message: 'Second one', channel: 'test'}, callback);
+                    }
+                ],
+                function () {
+                    var body = '';
+
+                    http.get(
+                        "http://127.0.0.1:5984/tests-couchdb-logger-service/_design/main/_list/html/all",
+                        function (res) {
+                            res.on('data', function (chunk) {
+                                body = body + chunk;
+                            })
+                            .on('end', function () {
+                                assert(body.indexOf('<html>') === 0);
+                                done();
+                            });
+                        }
+                    );
                 }
             );
         });

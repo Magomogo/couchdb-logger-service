@@ -44,6 +44,28 @@
                 }
                 throw ({forbidden: 'Log records update is prohibited'});
             }
+        },
+        lists: {
+            html: function(head, req) {
+                start({
+                    'headers': {
+                        'Content-Type': 'text/html'
+                    }
+                });
+                send('<html><body><table>');
+                send('<tr><th>Time</th><th>Channel</th><th>Message</th></tr>');
+                var row;
+                while((row = getRow())){
+                    send(''.concat(
+                        '<tr>',
+                        '<td>' + row.value.timestamp + '</td>',
+                        '<td>' + row.value.channel + '</td>',
+                        '<td><pre>' + JSON.stringify(row.value) + '</pre></td>',
+                        '</tr>'
+                    ));
+                }
+                send('</table></body></html>');
+            }
         }
     };
 
