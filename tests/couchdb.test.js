@@ -33,6 +33,13 @@
                 done();
             });
         });
+
+        it('creates log entry', function (done) {
+            db.save(require('./validLogEntry.js'), function (err, res) {
+                assert(!err);
+                done();
+            });
+        });
     });
 
 }());

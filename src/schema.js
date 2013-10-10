@@ -4,7 +4,15 @@
     module.exports = {
         views: {},
         validate_doc_update: function (newDoc, oldDoc, userCtx, secObj) {
-            throw ({forbidden: 'Log record should have "message" key'});
+
+            function assertDefined(field, doc) {
+                if (!doc[field]) {
+                    throw ({forbidden: 'Log record should have "' + field + '" key'});
+                }
+            }
+
+            assertDefined('message', newDoc);
+            assertDefined('channel', newDoc);
         }
     };
 
