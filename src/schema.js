@@ -13,6 +13,7 @@
 
             assertDefined('message', newDoc);
             assertDefined('channel', newDoc);
+            assertDefined('timestamp', newDoc);
         }
     };
 

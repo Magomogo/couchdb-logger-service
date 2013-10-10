@@ -1,7 +1,8 @@
 (function (undefined) {
     "use strict";
 
-    var assert = require("assert"),
+    var _ = require("underscore"),
+        assert = require("assert"),
         validationFn = require('../src/schema.js').validate_doc_update;
 
     describe ('validation', function () {
@@ -10,17 +11,31 @@
         });
 
         it('disallows documents without [message] key', function () {
+            var record = _.omit(require('./validLogEntry.js'), 'message');
+
             assert.throws(
                 function () {
-                    validationFn({});
+                    validationFn(record);
                 }
             );
         });
 
         it('disallows documents without [channel] key', function () {
+            var record = _.omit(require('./validLogEntry.js'), 'channel');
+
             assert.throws(
                 function () {
-                    validationFn({message: 'some'});
+                    validationFn(record);
+                }
+            );
+        });
+
+        it('disallows documents without [timestamp] key', function () {
+            var record = _.omit(require('./validLogEntry.js'), 'timestamp');
+
+            assert.throws(
+                function () {
+                    validationFn(record);
                 }
             );
         });
