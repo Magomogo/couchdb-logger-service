@@ -2,7 +2,10 @@
     "use strict";
 
     var cradle = require("cradle"),
-        async = require("async");
+        async = require("async"),
+        config = require("../src/configuration.js");
+
+    cradle.setup(config.couchdb);
 
     module.exports = {
 
