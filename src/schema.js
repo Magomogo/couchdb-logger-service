@@ -14,22 +14,7 @@
                 }
             }
         },
-        validate_doc_update: function (newDoc, oldDoc, userCtx, secObj) {
-
-            if (oldDoc) {
-                throw ({forbidden: 'Log records update is prohibited'});
-            }
-
-            function assertDefined(field, doc) {
-                if (!doc[field]) {
-                    throw ({forbidden: 'Log record should have "' + field + '" key'});
-                }
-            }
-
-            assertDefined('message', newDoc);
-            assertDefined('channel', newDoc);
-            assertDefined('timestamp', newDoc);
-        },
+        validate_doc_update: require('./validate_doc_update.js'),
         updates: {
             entry: function (doc, req) {
                 if (!doc) {

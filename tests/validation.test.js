@@ -3,7 +3,7 @@
 
     var _ = require("underscore"),
         assert = require("assert"),
-        validationFn = require('../src/schema.js').validate_doc_update;
+        validationFn = require('../src/validate_doc_update.js');
 
     describe ('validation', function () {
         it('accepts valid log record', function () {
