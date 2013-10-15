@@ -14,5 +14,9 @@
     }
 
     module.exports = config;
+    module.exports.couchdbLocation = function () {
+        return 'http' + (config.couchdb.secure ? 's' : '') + '://' + config.couchdb.host + ':' +
+            config.couchdb.port;
+    };
 
 }());

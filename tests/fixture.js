@@ -3,11 +3,16 @@
 
     var cradle = require("cradle"),
         async = require("async"),
-        config = require("../src/configuration.js");
+        config = require("../src/configuration.js"),
+        app = require("../src/application.js");
 
     cradle.setup(config.couchdb);
 
     module.exports = {
+
+        location: function () {
+            return config.couchdbLocation() + '/' + this.db.name;
+        },
 
         install: function (dbName, done) {
             var conn = new (cradle.Connection)(),
@@ -24,7 +29,7 @@
                     db.create(callback);
                 },
                 function (callback) {
-                    db.save('_design/main', require('../src/schema.js'), callback);
+                    app.install(dbName, callback);
                 },
             ], done);
         },

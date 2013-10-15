@@ -51,7 +51,15 @@
                 }
                 send('</table></body></html>');
             }
-        }
+        },
+        rewrites: [
+            {
+                "from": "",
+                "to": "index.html",
+                "method": "GET",
+                "query": {}
+            }
+        ]
     };
 
 }());
