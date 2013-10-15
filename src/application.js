@@ -13,16 +13,14 @@
     }
 
     function serializeFuncs(object) {
-        var serialized = {};
+        var serialized = _.extend({}, object);
 
         for (var key in object) {
-            if (object.hasOwnProperty(key)) {
-                if (typeof object[key] === 'object') {
-                    serialized[key] = serializeFuncs(object[key]);
-                } else if (typeof object[key] === 'function') {
+            if (object.hasOwnProperty(key) && !_.isArray(object[key])) {
+                if (_.isFunction(object[key])) {
                     serialized[key] = object[key].toString();
-                } else {
-                    serialized[key] = object[key];
+                } else if (_.isObject(object[key])) {
+                    serialized[key] = serializeFuncs(object[key]);
                 }
             }
         }

@@ -1,7 +1,8 @@
 (function (undefined) {
     "use strict";
 
-    var request = require('request'),
+    var assert = require("assert"),
+        request = require('request'),
         fixture = require("./fixture.js");
 
     describe('HTTP access', function () {
@@ -13,12 +14,7 @@
         it('does rewriting to index page', function (done) {
 
             request(fixture.location() + '/_design/main/_rewrite', function (err, response, body) {
-/*
-
-                console.log(err);
-                console.log(body);
-*/
-
+                assert(body === 'Hello, world!');
                 done();
             });
 
