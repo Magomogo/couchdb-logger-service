@@ -2,5 +2,12 @@
 
 <a href="javascript:logger.navigateToPage({{currentPage}})">Back to list</a>
 
-<h2>{{message}}</h2>
-<pre>{{#record}}{{{prettyPrint}}}{{/record}}</pre>
+<span class="label label-info pull-right">{{record.channel}}</span>
+<h2>{{record.message}}</h2>
+<p>
+    {{record.timestamp}}
+</p>
+
+<pre>
+    {{#record}}{{{prettyPrint}}}{{/record}}
+</pre>
