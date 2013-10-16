@@ -6,7 +6,7 @@
         _ = require("underscore"),
         request = require("request"),
         mime = require("mime"),
-        contentRoot = fs.realpathSync(__dirname + '/../content');
+        contentRoot = fs.realpathSync(__dirname + '/../www');
 
     function contentId(dir, file) {
         return (fs.realpathSync(dir) + '/').replace(contentRoot + '/', '') + file;

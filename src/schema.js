@@ -37,50 +37,7 @@
                 throw ('Log records update is prohibited');
             }
         },
-        rewrites: [
-            {
-                "from": "",
-                "to": "index.html",
-                "method": "GET",
-                "query": {}
-            },
-            {
-                "from": "all",
-                "to": "_view/all",
-                "method": "GET",
-                "query": {
-                    skip: "0",
-                    limit: "20",
-                    descending: "true"
-                }
-            },
-            {
-                "from": "all/:channel",
-                "to": "_view/channel/",
-                "method": "GET",
-                "query": {
-                    skip: "0",
-                    limit: "20",
-                    startkey: [":channel",{}],
-                    endkey: [":channel"],
-                    descending: "true"
-                }
-            },
-            {
-                "from": "all/:skip/:limit",
-                "to": "_view/all",
-                "method": "GET",
-                "query": {
-                    descending: "true"
-                }
-            },
-            {
-                "from": "new",
-                "to": "_update/entry",
-                "method": "POST",
-                "query": {}
-            }
-        ]
+        rewrites: require("./rewrites")
     };
 
 }());
