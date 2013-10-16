@@ -1,7 +1,7 @@
 (function (window, $, m) {
     "use strict";
 
-    var templates = {};
+    var templates = {}, rowsPerPage = 20;
 
     function loadTemplates(done) {
 
@@ -20,30 +20,44 @@
     }
 
     function calculatePageNav(data) {
-        return {
-            isFirst: true,
-            nav: [
-                {title: "1", active: true},
-                {title: "2", active: false},
-                {title: "3", active: false},
-                {title: "4", active: false},
-                {title: "5", active: false}
-            ],
-            isLast: false
+
+        var pageNum, nav = [], navLinksLimit = 5;
+
+        for (pageNum = Math.max(0, parseInt(data.offset / rowsPerPage) - 2);
+             pageNum < parseInt(data.total_rows / rowsPerPage) && navLinksLimit--;
+             pageNum++) {
+
+            nav.push({title: pageNum + 1, num: pageNum, active: pageNum === parseInt(data.offset / rowsPerPage)});
         }
+
+        console.log(data);
+
+        return {
+            isFirst: data.offset < rowsPerPage,
+            prev: parseInt(data.offset / rowsPerPage) - 1,
+            nav: nav,
+            next: parseInt(data.offset / rowsPerPage) + 1,
+            isLast: data.offset >= data.total_rows - rowsPerPage
+        }
+    }
+
+    function drawPage(num) {
+        $.getJSON('all/' + num * rowsPerPage + '/' + rowsPerPage, function (data) {
+            data.pageNav = calculatePageNav(data);
+            $('#view').html(templates.list(data));
+        })
     }
 
     window.logger = {
 
         init: function () {
             loadTemplates(function () {
-
-                $.getJSON('all', function (data) {
-                    data.pageNav = calculatePageNav(data);
-                    $('#view').html(templates.list(data));
-                })
-
+                drawPage(1);
             });
+        },
+
+        navigateToPage: function (num) {
+            drawPage(num);
         }
 
     }
