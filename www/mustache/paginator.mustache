@@ -1,0 +1,22 @@
+{{#pageNav}}{{>nav}}{{/pageNav}}
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>Timestamp</th>
+        <th>Channel</th>
+        <th>Message</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        {{#rows}}
+        <tr>
+            <td>{{value.timestamp}}</td>
+            <td>{{value.channel}}</td>
+            <td>{{value.message}}</td>
+            <td>{{id}}</td>
+        </tr>
+        {{/rows}}
+    </tbody>
+</table>

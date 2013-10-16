@@ -2,8 +2,27 @@
     {
         "from": "",
         "to": "index.html",
-        "method": "GET",
-        "query": {}
+        "method": "GET"
+    },
+    {
+        "from": "css/*",
+        "to": "css/*",
+        "method": "GET"
+    },
+    {
+        "from": "img/*",
+        "to": "img/*",
+        "method": "GET"
+    },
+    {
+        "from": "js/*",
+        "to": "js/*",
+        "method": "GET"
+    },
+    {
+        "from": "mustache/*",
+        "to": "mustache/*",
+        "method": "GET"
     },
     {
         "from": "all",

@@ -47,7 +47,7 @@
 
             async.series([
                 function (callback) {
-                    fixture.addLogEntry({message: 'New message', channel: 'http.test'}, callback)
+                    fixture.addLogEntry({message: 'New message', channel: 'http.test'}, callback);
                 },
                 function (callback) {
                     request(fixture.location() + '/_design/main/_rewrite/all/http.test', function (err, response, body) {

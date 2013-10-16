@@ -1,0 +1,9 @@
+<div class="pagination">
+    <ul>
+        <li{{#isFirst}} class="disabled"{{/isFirst}}><a href="#">Prev</a></li>
+        {{#nav}}
+        <li{{#active}} class="active"{{/active}}><a href="#">{{title}}</a></li>
+        {{/nav}}
+        <li{{#isLast}} class="disabled"{{/isLast}}><a href="#">Next</a></li>
+    </ul>
+</div>
