@@ -83,25 +83,6 @@
                 }
             );
         });
-
-        it('lists log records as HTML', function (done) {
-            fixture.populate(function () {
-                var body = '';
-
-                http.get(
-                    "http://127.0.0.1:5984/tests-couchdb-logger-service/_design/main/_list/html/all",
-                    function (res) {
-                        res.on('data', function (chunk) {
-                            body = body + chunk;
-                        })
-                        .on('end', function () {
-                            assert(body.indexOf('<html>') === 0);
-                            done();
-                        });
-                    }
-                );
-            });
-        });
     });
 
 }());
