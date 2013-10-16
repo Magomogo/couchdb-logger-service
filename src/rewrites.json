@@ -5,6 +5,11 @@
         "method": "GET"
     },
     {
+        "from": "record/:docId",
+        "to": "../../:docId",
+        "method": "GET"
+    },
+    {
         "from": "css/*",
         "to": "css/*",
         "method": "GET"

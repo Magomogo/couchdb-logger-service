@@ -78,7 +78,17 @@
 
         });
 
+        it('gives a document by its ID', function (done) {
+            request(fixture.location() + '/_all_docs', function (err, response, body) {
+                var docId = JSON.parse(body).rows[0].id;
 
+                request(fixture.location() + '/_design/main/_rewrite/record/' + docId, function (err, response, body) {
+                    assert(!err);
+                    assert.deepEqual(["_id","_rev","message","channel","timestamp"], Object.keys(JSON.parse(body)));
+                    done();
+                });
+            });
+        });
     });
 
 }());

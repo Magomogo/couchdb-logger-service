@@ -6,16 +6,14 @@
         <th>Timestamp</th>
         <th>Channel</th>
         <th>Message</th>
-        <th></th>
     </tr>
     </thead>
     <tbody>
         {{#rows}}
-        <tr>
+        <tr onclick="logger.showDocument('{{id}}')">
             <td>{{value.timestamp}}</td>
             <td>{{value.channel}}</td>
             <td>{{value.message}}</td>
-            <td>{{id}}</td>
         </tr>
         {{/rows}}
     </tbody>
