@@ -15,8 +15,9 @@
         });
 
         it('does rewriting to index page', function (done) {
-            request(fixture.location() + '/_design/main/_rewrite', function (err, response, body) {
-                assert.strictEqual(0, body.indexOf('<!DOCTYPE html>'));
+            request(fixture.location() + '/_design/main/_rewrite/', function (err, response, body) {
+                assert(!err);
+                assert.strictEqual(0, body.indexOf('<!DOCTYPE html>'), body);
                 done();
             });
         });
@@ -84,7 +85,11 @@
 
                 request(fixture.location() + '/_design/main/_rewrite/record/' + docId, function (err, response, body) {
                     assert(!err);
-                    assert.deepEqual(["_id","_rev","message","channel","timestamp"], Object.keys(JSON.parse(body)));
+                    assert.deepEqual(
+                        ["_id","_rev","message","channel","timestamp"],
+                        Object.keys(JSON.parse(body)),
+                        body
+                    );
                     done();
                 });
             });
