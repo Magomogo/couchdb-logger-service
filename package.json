@@ -1,6 +1,6 @@
 {
     "name": "couchdb-logger-service",
-    "version": "0.0.0",
+    "version": "0.1.0",
     "description": "Restful event logging service.",
     "scripts": {
         "posttest": "jshint ./src ./tests ./package.json",
