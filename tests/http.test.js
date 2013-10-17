@@ -16,19 +16,25 @@
 
         it('does rewriting to index page', function (done) {
             request(fixture.location() + '/_design/main/_rewrite/', function (err, response, body) {
-                assert(!err);
-                assert.strictEqual(0, body.indexOf('<!DOCTYPE html>'), body);
-                done();
+                try {
+                    assert(!err);
+                    assert.strictEqual(0, body.indexOf('<!DOCTYPE html>'), body);
+                    done();
+                } catch (e) {
+                    done(e);
+                }
             });
         });
 
         it('provides limited list of events sorted by timestamp', function (done) {
             request(fixture.location() + '/_design/main/_rewrite/all/0/2', function (err, response, body) {
-
-                assert(!err);
-                assert.equal(2, JSON.parse(body).rows.length);
-
-                done();
+                try {
+                    assert(!err);
+                    assert.equal(2, JSON.parse(body).rows.length);
+                    done();
+                } catch (e) {
+                    done(e);
+                }
             });
 
         });
@@ -36,10 +42,14 @@
         it('provides list of first events sorted by timestamp', function (done) {
             request(fixture.location() + '/_design/main/_rewrite/all', function (err, response, body) {
 
-                assert(!err);
-                assert.equal(3, JSON.parse(body).rows.length);
+                try {
+                    assert(!err);
+                    assert.equal(3, JSON.parse(body).rows.length);
+                    done();
+                } catch (e) {
+                    done(e);
+                }
 
-                done();
             });
 
         });
@@ -53,10 +63,14 @@
                 function (callback) {
                     request(fixture.location() + '/_design/main/_rewrite/all/http.test', function (err, response, body) {
 
-                        assert(!err);
-                        assert.equal(1, JSON.parse(body).rows.length);
+                        try {
+                            assert(!err);
+                            assert.equal(1, JSON.parse(body).rows.length);
+                            callback();
+                        } catch (e) {
+                            callback(e);
+                        }
 
-                        callback();
                     });
                 }
             ], done);
@@ -71,9 +85,13 @@
                     body: JSON.stringify(fixture.validLogEntry)
                 },
                 function (err, response, body) {
-                    assert(!err);
-                    assert.strictEqual(true, JSON.parse(body).ok);
-                    done();
+                    try {
+                        assert(!err);
+                        assert.strictEqual(true, JSON.parse(body).ok);
+                        done();
+                    } catch (e) {
+                        done(e);
+                    }
                 }
             );
 
@@ -84,13 +102,18 @@
                 var docId = JSON.parse(body).rows[0].id;
 
                 request(fixture.location() + '/_design/main/_rewrite/record/' + docId, function (err, response, body) {
-                    assert(!err);
-                    assert.deepEqual(
-                        ["_id","_rev","message","channel","timestamp"],
-                        Object.keys(JSON.parse(body)),
-                        body
-                    );
-                    done();
+
+                    try {
+                        assert(!err);
+                        assert.deepEqual(
+                            ["_id","_rev","message","channel","timestamp"],
+                            Object.keys(JSON.parse(body)),
+                            body
+                        );
+                        done();
+                    } catch (e) {
+                        done(e);
+                    }
                 });
             });
         });
