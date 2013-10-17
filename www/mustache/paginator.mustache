@@ -1,4 +1,4 @@
-{{#pageNav}}{{>nav}}{{/pageNav}}
+{{#h_pageNav}}{{>nav}}{{/h_pageNav}}
 
 <table class="table table-hover">
     <thead>
@@ -11,7 +11,7 @@
     <tbody>
         {{#rows}}
         <tr style="cursor:pointer" onclick="logger.navigate('record', '{{id}}')">
-            <td style="white-space: nowrap">{{#datetime}}{{value.timestamp}}{{/datetime}}</td>
+            <td style="white-space: nowrap">{{#h_dateTimeList}}{{value.timestamp}}{{/h_dateTimeList}}</td>
             <td>{{value.channel}}</td>
             <td>{{value.message}}</td>
         </tr>
@@ -19,4 +19,4 @@
     </tbody>
 </table>
 
-{{#pageNav}}{{>nav}}{{/pageNav}}
+{{#h_pageNav}}{{>nav}}{{/h_pageNav}}

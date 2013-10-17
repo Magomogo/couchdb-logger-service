@@ -5,9 +5,9 @@
 <span class="label label-info pull-right">{{record.channel}}</span>
 <h2>{{record.message}}</h2>
 <p>
-    {{#datetime}}{{record.timestamp}}{{/datetime}}
+    {{#h_dateTimeRecord}}{{record.timestamp}}{{/h_dateTimeRecord}}
 </p>
 
 <pre>
-    {{#record}}{{{prettyPrint}}}{{/record}}
+    {{#record}}{{{h_prettyJson}}}{{/record}}
 </pre>
