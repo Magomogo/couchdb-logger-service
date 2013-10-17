@@ -91,9 +91,7 @@
                 uri: config.couchdbLocation() + '/' + dbName + '/_design/main',
                 multipart: parts
             },
-            function (error, response, body) {
-                done(error);
-            }
+            done
         );
 
     }

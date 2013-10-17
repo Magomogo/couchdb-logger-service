@@ -9,8 +9,12 @@
     describe('HTTP access', function () {
 
         beforeEach(function (done) {
-            fixture.install('tests-couchdb-logger-service', function () {
-                fixture.populate(done);
+            fixture.install('tests-couchdb-logger-service', function (err) {
+                if (err) {
+                    done(err);
+                } else {
+                    fixture.populate(done);
+                }
             });
         });
 
