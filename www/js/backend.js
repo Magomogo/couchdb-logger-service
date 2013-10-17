@@ -1,4 +1,4 @@
-(function (window, $, mustache, moment) {
+(function (window, $, mustache, moment, History) {
     "use strict";
 
     var templates = {}, rowsPerPage = 20, currentPage = 0;
@@ -74,35 +74,60 @@
         return html + '</dl>';
     }
 
-    window.logger = {
+    function navigate (pageName, param, doNotStoreHistoryChange) {
+        var actions = {
+                page: function (num) {
+                    currentPage = num;
+                    drawPage(num);
+                    return 'Page ' + (num+1);
+                },
+                record: function (id) {
+                    $.getJSON('record/' + id, function (data) {
 
-        init: function () {
-            loadTemplates(function () {
-                drawPage(0);
-            });
-        },
+                        $('#view').html(templates.record(
+                            {
+                                currentPage: currentPage,
+                                record: data,
+                                prettyPrint: function () {
+                                    return printJsonAsHtml(this);
+                                },
+                                datetime: dateTimeHelper("D MMM YYYY HH:mm:ss.SSS")
+                            }
+                        ));
+                    });
+                    return 'Record ' + id;
+                }
+            }, pageTitle;
 
-        navigateToPage: function (num) {
-            currentPage = num;
-            drawPage(num);
-        },
+        pageTitle = actions[pageName](param);
 
-        showDocument: function (id) {
-            $.getJSON('record/' + id, function (data) {
-
-                $('#view').html(templates.record(
-                    {
-                        currentPage: currentPage,
-                        record: data,
-                        prettyPrint: function () {
-                            return printJsonAsHtml(this);
-                        },
-                        datetime: dateTimeHelper("D MMM YYYY HH:mm:ss.SSS")
-                    }
-                ));
-            })
+        if (!doNotStoreHistoryChange) {
+            History.pushState({page: pageName, param: param}, pageTitle, '');
         }
 
     }
 
-}(window, jQuery, Mustache, moment));
+    function bindHistory() {
+        History.Adapter.bind(window,'statechange',function(){
+            var state = History.getState();
+
+            if (state.data.page) {
+                navigate(state.data.page, state.data.param, 'do not store history change');
+            }
+        });
+    }
+
+    window.logger = {
+
+        init: function () {
+            bindHistory();
+            loadTemplates(function () {
+                drawPage(0);
+                History.replaceState({page: 'page', param: 0}, 'Page 1', '')
+            });
+        },
+
+        navigate: navigate
+    }
+
+}(window, jQuery, Mustache, moment, History));

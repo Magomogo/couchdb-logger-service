@@ -1,15 +1,15 @@
 <div class="pagination">
     <ul>
         <li{{#isFirst}} class="disabled"{{/isFirst}}>
-            <a href="javascript:{{^isFirst}}logger.navigateToPage({{prev}}){{/isFirst}}">Prev</a>
+            <a href="javascript:{{^isFirst}}logger.navigate('page',{{prev}}){{/isFirst}}">Prev</a>
         </li>
         {{#nav}}
         <li{{#active}} class="active"{{/active}}>
-            <a href="javascript:{{^active}}logger.navigateToPage({{num}}){{/active}}">{{title}}</a>
+            <a href="javascript:{{^active}}logger.navigate('page',{{num}}){{/active}}">{{title}}</a>
         </li>
         {{/nav}}
         <li{{#isLast}} class="disabled"{{/isLast}}>
-            <a href="javascript:{{^isLast}}logger.navigateToPage({{next}}){{/isLast}}">Next</a>
+            <a href="javascript:{{^isLast}}logger.navigate('page',{{next}}){{/isLast}}">Next</a>
         </li>
     </ul>
 </div>
