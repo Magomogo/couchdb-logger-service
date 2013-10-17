@@ -2,6 +2,7 @@
     "use strict";
 
     var config = require("./configuration.js"),
+        util = require("util"),
         fs = require("fs"),
         _ = require("underscore"),
         request = require("request"),
@@ -31,7 +32,7 @@
 
         fs.readdir(dir, function (err, files) {
             if (err) {
-                done(err);
+                done(new Error(util.format('Exception occured: %s', util.inspect(err))));
             } else {
 
                 var attachments = {},
