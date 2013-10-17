@@ -1,4 +1,4 @@
-(function (window, $, m) {
+(function (window, $, mustache, moment) {
     "use strict";
 
     var templates = {}, rowsPerPage = 20, currentPage = 0;
@@ -7,16 +7,16 @@
 
         $.when(
             $.get('mustache/list.mustache', function (template) {
-                templates.list = m.compile(template);
+                templates.list = mustache.compile(template);
             }),
             $.get('mustache/record.mustache', function (template) {
-                templates.record = m.compile(template);
+                templates.record = mustache.compile(template);
             }),
             $.get('mustache/paginator.mustache', function (template) {
-                m.compilePartial('paginator', template);
+                mustache.compilePartial('paginator', template);
             }),
             $.get('mustache/page-nav.mustache', function (template) {
-                m.compilePartial('nav', template);
+                mustache.compilePartial('nav', template);
             })
         ).then(done);
 
@@ -42,9 +42,19 @@
         }
     }
 
+    function dateTimeHelper(format, includeFromNow) {
+        return function () {
+            return function (content, render) {
+                var date = moment(render(content));
+                return date.format(format) + (includeFromNow ? ', ' + date.fromNow() : '');
+            }
+        }
+    }
+
     function drawPage(num) {
         $.getJSON('all/' + num * rowsPerPage + '/' + rowsPerPage, function (data) {
             data.pageNav = calculatePageNav(data);
+            data.datetime = dateTimeHelper("D.MM.YYYY HH:mm", 'fromNow');
             $('#view').html(templates.list(data));
         })
     }
@@ -85,8 +95,9 @@
                         currentPage: currentPage,
                         record: data,
                         prettyPrint: function () {
-                                return printJsonAsHtml(this);
-                        }
+                            return printJsonAsHtml(this);
+                        },
+                        datetime: dateTimeHelper("D MMM YYYY HH:mm:ss.SSS")
                     }
                 ));
             })
@@ -94,4 +105,4 @@
 
     }
 
-}(window, jQuery, Mustache));
+}(window, jQuery, Mustache, moment));

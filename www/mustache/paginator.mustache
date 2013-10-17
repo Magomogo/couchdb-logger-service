@@ -10,8 +10,8 @@
     </thead>
     <tbody>
         {{#rows}}
-        <tr onclick="logger.showDocument('{{id}}')">
-            <td>{{value.timestamp}}</td>
+        <tr style="cursor:pointer" onclick="logger.showDocument('{{id}}')">
+            <td style="white-space: nowrap">{{#datetime}}{{value.timestamp}}{{/datetime}}</td>
             <td>{{value.channel}}</td>
             <td>{{value.message}}</td>
         </tr>

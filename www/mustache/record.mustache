@@ -5,7 +5,7 @@
 <span class="label label-info pull-right">{{record.channel}}</span>
 <h2>{{record.message}}</h2>
 <p>
-    {{record.timestamp}}
+    {{#datetime}}{{record.timestamp}}{{/datetime}}
 </p>
 
 <pre>
