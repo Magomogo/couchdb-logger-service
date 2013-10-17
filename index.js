@@ -1,12 +1,14 @@
-/* global window, jQuery, History, renderer */
-
-(function (window, $, History, renderer) {
+(function (window) {
     "use strict";
 
-    var rowsPerPage = 20, currentPage = 0;
+    var rowsPerPage = 20,
+        currentPage = 0,
+        $ = require("jquery-commonjs"),
+        history = require("html5-history"),
+        renderer = require("./src/renderer.js");
 
-    History.Adapter.bind(window, 'statechange', function () {
-        var state = History.getState();
+    history.Adapter.bind(window, 'statechange', function () {
+        var state = history.getState();
 
         if (state.data.page) {
             navigate(state.data.page, state.data.param, 'do not store history change');
@@ -37,7 +39,7 @@
         pageTitle = actions[pageName](param);
 
         if (!doNotStoreHistoryChange) {
-            History.pushState({page: pageName, param: param}, pageTitle, '');
+            history.pushState({page: pageName, param: param}, pageTitle, '');
         }
 
     }
@@ -47,11 +49,13 @@
         init: function () {
             renderer.loadTemplates(function () {
                 navigate('page', 0, 'do not store history change');
-                History.replaceState({page: 'page', param: 0}, 'Page 1', '');
+                history.replaceState({page: 'page', param: 0}, 'Page 1', '');
             });
         },
 
         navigate: navigate
     };
 
-}(window, jQuery, History, renderer));
+}(window));
+
+logger.init();

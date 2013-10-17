@@ -1,36 +1,42 @@
 {
-  "name": "couchdb-logger-service",
-  "version": "0.0.0",
-  "description": "Restful event logging service.",
-  "scripts": {
-    "posttest": "jshint ./src ./tests ./package.json ./www/js",
-    "test": "mocha ./tests/*.test.js"
-  },
-  "devDependencies": {
-    "mocha": "1.9.x",
-    "sinon": "~1.6.0",
-    "async": "~0.2.9",
-    "jshint": "~2.0.1"
-  },
-  "dependencies": {
-    "cradle": "~0.6.6",
-    "underscore": "~1.4.4",
-    "mime": "1.2.11",
-    "request": "~2.27.0"
-  },
-  "main": "index.js",
-  "directories": {
-    "test": "tests"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Magomogo/couchdb-logger-service"
-  },
-  "keywords": [
-    "couchdb",
-    "logger",
-    "rest"
-  ],
-  "author": "Maxim Gnatenko",
-  "license": "MIT"
+    "name": "couchdb-logger-service",
+    "version": "0.0.0",
+    "description": "Restful event logging service.",
+    "scripts": {
+        "posttest": "jshint ./src ./tests ./package.json",
+        "test": "mocha ./tests/*.test.js",
+        "postinstall": "./node_modules/.bin/browserify index.js -o www/js/bundle.js && ./install.sh"
+    },
+    "devDependencies": {
+        "mocha": "1.9.x",
+        "sinon": "~1.6.0",
+        "async": "~0.2.9",
+        "jshint": "~2.0.1"
+    },
+    "dependencies": {
+        "cradle": "~0.6.6",
+        "underscore": "~1.4.4",
+        "mime": "~1.2.11",
+        "request": "~2.27.0",
+        "browserify": "~2.34.1",
+        "mustache": "~0.7.2",
+        "jquery-commonjs": "~1.7.1",
+        "html5-history": "~0.1.5",
+        "moment": "2.3.1"
+    },
+    "main": "index.js",
+    "directories": {
+        "test": "tests"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Magomogo/couchdb-logger-service"
+    },
+    "keywords": [
+        "couchdb",
+        "logger",
+        "rest"
+    ],
+    "author": "Maxim Gnatenko",
+    "license": "MIT"
 }

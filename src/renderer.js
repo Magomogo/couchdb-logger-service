@@ -1,9 +1,11 @@
-/* global window, jQuery, moment, Mustache */
-
-(function (window, $, moment, mustache) {
+(function (undefined) {
     "use strict";
 
-    var templates = {}, rowsPerPage = 20;
+    var templates = {},
+        rowsPerPage = 20,
+        $ = require("jquery-commonjs"),
+        mustache = require ("mustache"),
+        moment = require ("moment");
 
     function pageNavigationHelper () {
         return function (content, render) {
@@ -67,7 +69,7 @@
         return view;
     }
 
-    window.renderer = {
+    module.exports = {
 
         loadTemplates: function (done) {
 
@@ -98,4 +100,4 @@
 
     };
 
-}(window, jQuery, moment, Mustache));
+}());
