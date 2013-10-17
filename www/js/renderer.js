@@ -1,3 +1,5 @@
+/* global window, jQuery, moment, Mustache */
+
 (function (window, $, moment, mustache) {
     "use strict";
 
@@ -8,21 +10,25 @@
 
             var pageNum, nav = [], navLinksLimit = 5, data = this;
 
-            for (pageNum = Math.max(0, parseInt(data.offset / rowsPerPage) - 2);
-                 pageNum < parseInt(data.total_rows / rowsPerPage) && navLinksLimit--;
+            for (pageNum = Math.max(0, parseInt(data.offset / rowsPerPage, 10) - 2);
+                 pageNum < parseInt(data.total_rows / rowsPerPage, 10) && navLinksLimit--;
                  pageNum++) {
 
-                nav.push({title: pageNum + 1, num: pageNum, active: pageNum === parseInt(data.offset / rowsPerPage)});
+                nav.push({
+                    title: pageNum + 1,
+                    num: pageNum,
+                    active: pageNum === parseInt(data.offset / rowsPerPage, 10)
+                });
             }
 
             this.isFirst = data.offset < rowsPerPage;
-            this.prev = parseInt(data.offset / rowsPerPage) - 1;
+            this.prev = parseInt(data.offset / rowsPerPage, 10) - 1;
             this.nav = nav;
-            this.next = parseInt(data.offset / rowsPerPage) + 1;
+            this.next = parseInt(data.offset / rowsPerPage, 10) + 1;
             this.isLast = data.offset >= data.total_rows - rowsPerPage;
 
             return render(content);
-        }
+        };
     }
 
     function dateTimeHelper (format, includeFromNow) {
@@ -30,8 +36,8 @@
             return function (content, render) {
                 var date = moment(render(content));
                 return date.format(format) + (includeFromNow ? ', ' + date.fromNow() : '');
-            }
-        }
+            };
+        };
     }
 
     function printJsonAsHtmlHelper () {
@@ -40,16 +46,16 @@
 
             for (key in json) {
                 if (json.hasOwnProperty(key) && (['_id', '_rev', 'timestamp', 'message', 'channel'].indexOf(key) === -1)) {
-                    if (typeof json[key] == 'object') {
+                    if (typeof json[key] === 'object') {
                         html += printJsonAsHtmlHelper(json[key]);
                     } else {
-                        html += '<dt>' + key + '</dt>'
-                        html += '<dd>' + json[key] + '</dd>'
+                        html += '<dt>' + key + '</dt>';
+                        html += '<dd>' + json[key] + '</dd>';
                     }
                 }
             }
             return html + '</dl>';
-        }
+        };
     }
 
     function registerHelpers (view) {
@@ -90,6 +96,6 @@
             return templates.record(registerHelpers({currentPage: currentPage, record: record}));
         }
 
-    }
+    };
 
 }(window, jQuery, moment, Mustache));

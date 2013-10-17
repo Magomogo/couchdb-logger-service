@@ -1,3 +1,5 @@
+/* global window, jQuery, History, renderer */
+
 (function (window, $, History, renderer) {
     "use strict";
 
@@ -45,11 +47,11 @@
         init: function () {
             renderer.loadTemplates(function () {
                 navigate('page', 0, 'do not store history change');
-                History.replaceState({page: 'page', param: 0}, 'Page 1', '')
+                History.replaceState({page: 'page', param: 0}, 'Page 1', '');
             });
         },
 
         navigate: navigate
-    }
+    };
 
 }(window, jQuery, History, renderer));
