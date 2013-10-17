@@ -101,7 +101,11 @@
             var schema = require("./schema.js");
 
             readAttachments(contentRoot, function (err, attachments) {
-                writeSchema(dbName, _.extend({}, schema, {_attachments: attachments}), done);
+                if (err) {
+                    done(err);
+                } else {
+                    writeSchema(dbName, _.extend({}, schema, {_attachments: attachments}), done);
+                }
             });
         }
     };
