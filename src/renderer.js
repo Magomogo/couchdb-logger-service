@@ -31,7 +31,7 @@
             if (typeof json.reduce === 'function') {
 
                 html += '[' + json.reduce(function (res, i) {
-                    return (res ? res + ', ' : '') + (typeof i === 'object' ? printLevel(i) : i);
+                    return (res ? res + ', ' : '') + (typeof i === 'object' ? printLevel(i) : mustache.escape(i));
                 }, '') + ']';
 
             } else {
@@ -40,8 +40,9 @@
 
                 for (key in json) {
                     if (json.hasOwnProperty(key)) {
-                        html += '<li><b>' + key + ':</b>';
-                        html += (typeof json[key] === 'object' ? printLevel(json[key]) : ' ' + json[key]) + '</li>';
+                        html += '<li><b>' + mustache.escape(key) + ':</b>';
+                        html += (typeof json[key] === 'object' ?
+                            printLevel(json[key]) : ' ' + mustache.escape(json[key])) + '</li>';
                     }
                 }
                 html += '</ul>';
@@ -60,8 +61,9 @@
                 if (this.hasOwnProperty(key) &&
                     (['_id', '_rev', 'timestamp', 'message', 'channel'].indexOf(key) === -1)) {
 
-                    html += '<div><b>' + key + ':</b>' +
-                        (typeof this[key] === 'object' ? printLevel(this[key]) : ' ' + this[key]) + '</div>';
+                    html += '<div><b>' + mustache.escape(key) + ':</b>' +
+                        (typeof this[key] === 'object' ? printLevel(this[key]) : ' ' + mustache.escape(this[key])) +
+                        '</div>';
                 }
             }
             return html;
