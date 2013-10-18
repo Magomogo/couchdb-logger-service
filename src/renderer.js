@@ -4,9 +4,9 @@
     var templates = {},
         rowsPerPage = 20,
         $ = require("jquery-commonjs"),
-        mustache = require ("mustache"),
-        moment = require ("moment"),
-        definePageNav = require ("./definePageNav.js");
+        mustache = require("mustache"),
+        moment = require("moment"),
+        definePageNav = require("./definePageNav.js");
 
     function pageNavigationHelper () {
         return function (content, render) {
@@ -25,20 +25,46 @@
     }
 
     function printJsonAsHtmlHelper () {
-        return function () {
-            var html = '<dl>', key, json = this;
+        function printLevel(json) {
+            var html = '', key;
 
-            for (key in json) {
-                if (json.hasOwnProperty(key) && (['_id', '_rev', 'timestamp', 'message', 'channel'].indexOf(key) === -1)) {
-                    if (typeof json[key] === 'object') {
-                        html += printJsonAsHtmlHelper(json[key]);
-                    } else {
-                        html += '<dt>' + key + '</dt>';
-                        html += '<dd>' + json[key] + '</dd>';
+            if (typeof json.reduce === 'function') {
+
+                html += '[' + json.reduce(function (res, i) {
+                    return (res ? res + ', ' : '') + (typeof i === 'object' ? printLevel(i) : i);
+                }, '') + ']';
+
+            } else {
+
+                html += '<ul>';
+
+                for (key in json) {
+                    if (json.hasOwnProperty(key)) {
+                        html += '<li><b>' + key + ':</b>';
+                        html += (typeof json[key] === 'object' ? printLevel(json[key]) : ' ' + json[key]) + '</li>';
                     }
                 }
+                html += '</ul>';
+
+                if (html === '<ul></ul>') {
+                    html = '{}';
+                }
             }
-            return html + '</dl>';
+
+            return html;
+        }
+
+        return function () {
+            var html = '', key;
+            for (key in this) {
+                if (this.hasOwnProperty(key) &&
+                    (['_id', '_rev', 'timestamp', 'message', 'channel'].indexOf(key) === -1)) {
+
+                    html += '<div><b>' + key + ':</b>' +
+                        (typeof this[key] === 'object' ? printLevel(this[key]) : ' ' + this[key]) + '</div>';
+                }
+            }
+            return html;
         };
     }
 
