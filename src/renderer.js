@@ -5,30 +5,12 @@
         rowsPerPage = 20,
         $ = require("jquery-commonjs"),
         mustache = require ("mustache"),
-        moment = require ("moment");
+        moment = require ("moment"),
+        definePageNav = require ("./definePageNav.js");
 
     function pageNavigationHelper () {
         return function (content, render) {
-
-            var pageNum, nav = [], navLinksLimit = 5, data = this;
-
-            for (pageNum = Math.max(0, parseInt(data.offset / rowsPerPage, 10) - 2);
-                 (pageNum < parseInt(data.total_rows / rowsPerPage, 10)) && navLinksLimit--;
-                 pageNum++) {
-
-                nav.push({
-                    title: pageNum + 1,
-                    num: pageNum,
-                    active: pageNum === parseInt(data.offset / rowsPerPage, 10)
-                });
-            }
-
-            this.isFirst = data.offset < rowsPerPage;
-            this.prev = parseInt(data.offset / rowsPerPage, 10) - 1;
-            this.nav = nav;
-            this.next = parseInt(data.offset / rowsPerPage, 10) + 1;
-            this.isLast = data.offset >= data.total_rows - rowsPerPage;
-
+            definePageNav(this, rowsPerPage);
             return render(content);
         };
     }
