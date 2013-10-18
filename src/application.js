@@ -9,7 +9,7 @@
         mime = require("mime"),
         contentRoot = fs.realpathSync(__dirname + '/../www');
 
-    function contentId(dir, file) {
+    function attachmentId(dir, file) {
         return (fs.realpathSync(dir) + '/').replace(contentRoot + '/', '') + file;
     }
 
@@ -54,7 +54,7 @@
 
                             } else {
 
-                                attachments[contentId(dir, file)] = {
+                                attachments[attachmentId(dir, file)] = {
                                     follows: true,
                                     content_type: mime.lookup(dir + '/' + file),
                                     length: stat.size

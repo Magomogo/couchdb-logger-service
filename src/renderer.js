@@ -13,7 +13,7 @@
             var pageNum, nav = [], navLinksLimit = 5, data = this;
 
             for (pageNum = Math.max(0, parseInt(data.offset / rowsPerPage, 10) - 2);
-                 pageNum < parseInt(data.total_rows / rowsPerPage, 10) && navLinksLimit--;
+                 (pageNum < parseInt(data.total_rows / rowsPerPage, 10)) && navLinksLimit--;
                  pageNum++) {
 
                 nav.push({

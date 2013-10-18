@@ -20,11 +20,6 @@
         "method": "GET"
     },
     {
-        "from": "lib/*",
-        "to": "lib/*",
-        "method": "GET"
-    },
-    {
         "from": "js/*",
         "to": "js/*",
         "method": "GET"
