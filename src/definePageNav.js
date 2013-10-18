@@ -30,6 +30,6 @@
         view.next = currPageNum + 1;
         view.isLast = currPageNum === totalPages;
         return view;
-    }
+    };
 
 }());

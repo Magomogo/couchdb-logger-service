@@ -22,8 +22,9 @@
 
             async.series([
                 function (callback) {
-                    db.destroy();
-                    callback();
+                    db.destroy(function (err) {
+                        callback();
+                    });
                 },
                 function (callback) {
                     db.create(callback);

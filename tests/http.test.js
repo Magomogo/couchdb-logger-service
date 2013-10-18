@@ -10,10 +10,12 @@
 
         beforeEach(function (done) {
             fixture.install('tests-couchdb-logger-service', function (err) {
-                if (err) {
-                    done(err);
-                } else {
+                try {
+                    assert(!err);
                     fixture.populate(done);
+                } catch (e) {
+                    console.log(err);
+                    done(e);
                 }
             });
         });
