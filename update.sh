@@ -12,12 +12,9 @@
 
         async.series([
             function (callback) {
-                db.destroy(function () {
-                    callback();
+                db.get('_design/main', function (err, doc) {
+                    db.remove('_design/main', doc._rev, callback);
                 });
-            },
-            function (callback) {
-                db.create(callback);
             },
             function (callback) {
                 app.install(config.dbname, callback);
