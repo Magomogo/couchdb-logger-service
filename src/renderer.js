@@ -25,6 +25,8 @@
     }
 
     function printJsonAsHtmlHelper () {
+        /* jshint validthis: true */
+
         function printLevel(json) {
             var html = '', key;
 
@@ -55,19 +57,17 @@
             return html;
         }
 
-        return function () {
-            var html = '', key;
-            for (key in this) {
-                if (this.hasOwnProperty(key) &&
-                    (['_id', '_rev', 'timestamp', 'message', 'channel'].indexOf(key) === -1)) {
+        var html = '', key, view = this;
+        for (key in view) {
+            if (view.hasOwnProperty(key) &&
+                (['_id', '_rev', 'timestamp', 'message', 'channel'].indexOf(key) === -1)) {
 
-                    html += '<div><b>' + mustache.escape(key) + ':</b>' +
-                        (typeof this[key] === 'object' ? printLevel(this[key]) : ' ' + mustache.escape(this[key])) +
-                        '</div>';
-                }
+                html += '<div><b>' + mustache.escape(key) + ':</b>' +
+                    (typeof view[key] === 'object' ? printLevel(view[key]) : ' ' + mustache.escape(view[key])) +
+                    '</div>';
             }
-            return html;
-        };
+        }
+        return html;
     }
 
     function registerHelpers (view) {
