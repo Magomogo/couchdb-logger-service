@@ -5,7 +5,7 @@
     "scripts": {
         "posttest": "jshint ./src ./tests ./package.json",
         "test": "mocha ./tests/*.test.js",
-        "postinstall": "./node_modules/.bin/browserify index.js -o www/js/bundle.js && ./install.sh",
+        "postinstall": "./node_modules/.bin/browserify index.js -o www/js/bundle.js && ./update.sh",
         "postupdate":  "./node_modules/.bin/browserify index.js -o www/js/bundle.js && ./update.sh"
     },
     "devDependencies": {

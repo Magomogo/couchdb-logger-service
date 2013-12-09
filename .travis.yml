@@ -4,3 +4,5 @@ node_js:
 
 services:
   - CouchDB
+
+script: ./install.sh
