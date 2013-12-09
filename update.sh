@@ -13,7 +13,11 @@
         async.series([
             function (callback) {
                 db.get('_design/main', function (err, doc) {
-                    db.remove('_design/main', doc._rev, callback);
+                    if (err) {
+                        db.create(callback);
+                    } else {
+                        db.remove('_design/main', doc._rev, callback);
+                    }
                 });
             },
             function (callback) {
