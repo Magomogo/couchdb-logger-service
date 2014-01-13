@@ -1,12 +1,12 @@
 (function (undefined) {
-    "use strict";
+    'use strict';
 
     var templates = {},
         rowsPerPage = 20,
-        $ = require("jquery-commonjs"),
-        mustache = require("mustache"),
-        moment = require("moment"),
-        definePageNav = require("./definePageNav.js");
+        $ = require('jquery-commonjs'),
+        mustache = require('mustache'),
+        moment = require('moment'),
+        definePageNav = require('./definePageNav.js');
 
     function pageNavigationHelper () {
         return function (content, render) {
@@ -71,8 +71,8 @@
     }
 
     function registerHelpers (view) {
-        view.h_dateTimeList = dateTimeHelper("D.MM.YYYY HH:mm", 'fromNow');
-        view.h_dateTimeRecord = dateTimeHelper("D MMM YYYY HH:mm:ss.SSS");
+        view.h_dateTimeList = dateTimeHelper('D.MM.YYYY HH:mm', 'fromNow');
+        view.h_dateTimeRecord = dateTimeHelper('D MMM YYYY HH:mm:ss.SSS');
         view.h_pageNav = pageNavigationHelper;
         view.h_prettyJson = printJsonAsHtmlHelper;
 
