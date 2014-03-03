@@ -22,7 +22,7 @@
         "browserify": "~2.34.1",
         "mustache": "~0.7.2",
         "jquery-commonjs": "~1.7.1",
-        "html5-history": "~0.1.5",
+        "director": "~1.2.3",
         "moment": "2.3.1"
     },
     "main": "index.js",

@@ -10,7 +10,7 @@
     </thead>
     <tbody>
         {{#rows}}
-        <tr style="cursor:pointer" onclick="logger.navigate('record', '{{id}}')">
+        <tr style="cursor:pointer" onclick="window.location.hash='#/record/{{id}}'">
             <td style="white-space: nowrap">{{#h_dateTimeList}}{{value.timestamp}}{{/h_dateTimeList}}</td>
             <td>{{value.channel}}</td>
             <td>{{value.message}}</td>

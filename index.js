@@ -4,18 +4,10 @@
     var rowsPerPage = 20,
         currentPage = 0,
         $ = require("jquery-commonjs"),
-        history = require("html5-history"),
+        Router = require("director").Router,
         renderer = require("./src/renderer.js");
 
-    history.Adapter.bind(window, 'statechange', function () {
-        var state = history.getState();
-
-        if (state.data.page) {
-            navigate(state.data.page, state.data.param, 'do not store history change');
-        }
-    });
-
-    function navigate(pageName, param, doNotStoreHistoryChange) {
+    function navigate(pageName, param) {
         var actions = {
             page: function (num) {
                 currentPage = num;
@@ -28,32 +20,41 @@
             },
             record: function (id) {
 
-                $.getJSON('record/' + id, function (data) {
-                    $('#view').html(renderer.renderRecord(data, currentPage));
+                $.ajax({
+                    url: 'record/' + id,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        $('#view').html(renderer.renderRecord(data, currentPage));
+                    },
+                    error: function (xhr) {
+                        $('#view').html('<h1>' + xhr.status + ' - ' + xhr.statusText + '</h1>');
+                    }
                 });
 
                 return 'Record ' + id;
             }
-        }, pageTitle;
+        };
 
-        pageTitle = actions[pageName](param);
-
-        if (!doNotStoreHistoryChange) {
-            history.pushState({page: pageName, param: param}, pageTitle, '');
-        }
-
+        window.document.title = actions[pageName](param);
     }
 
     window.logger = {
 
         init: function () {
-            renderer.loadTemplates(function () {
-                navigate('page', 0, 'do not store history change');
-                history.replaceState({page: 'page', param: 0}, 'Page 1', '');
+            var router = new Router({
+                '/list/:page': function (pageNum) {
+                    navigate('page', parseInt(pageNum, 10));
+                },
+                '/record/:id': function (id) {
+                    navigate('record', id);
+                }
             });
-        },
 
-        navigate: navigate
+            renderer.loadTemplates(function () {
+                router.init('list/0');
+            });
+        }
     };
 
 }(window));
