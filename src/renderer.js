@@ -24,6 +24,14 @@
         };
     }
 
+    function highlightHelper (highlightId) {
+        return function () {
+            return function (content, render) {
+                return highlightId === this.id ? render(content) : '';
+            };
+        };
+    }
+
     function printJsonAsHtmlHelper () {
         /* jshint validthis: true */
 
@@ -81,9 +89,9 @@
 
     module.exports = {
 
-        loadTemplates: function (done) {
+        loadTemplates: function () {
 
-            $.when(
+            return $.when(
                 $.get('mustache/list.mustache', function (template) {
                     templates.list = mustache.compile(template);
                 }),
@@ -96,11 +104,12 @@
                 $.get('mustache/page-nav.mustache', function (template) {
                     mustache.compilePartial('nav', template);
                 })
-            ).then(done);
-
+            );
         },
 
-        renderList: function (view) {
+        renderList: function (view, currentPage, highlightId) {
+            view.currentPage = currentPage;
+            view.h_highlighted = highlightHelper(highlightId);
             return templates.list(registerHelpers(view));
         },
 

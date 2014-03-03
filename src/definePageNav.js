@@ -29,6 +29,7 @@
         view.nav = nav;
         view.next = currPageNum + 1;
         view.isLast = currPageNum === totalPages;
+        view.totalPages = totalPages;
         return view;
     };
 

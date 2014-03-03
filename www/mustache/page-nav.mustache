@@ -1,7 +1,7 @@
 <div class="pagination">
     <ul>
         <li{{#isFirst}} class="disabled"{{/isFirst}}>
-            <a{{^isFirst}} href="#/list/{{prev}}"{{/isFirst}}>Prev</a>
+            <a{{^isFirst}} href="#/list/{{prev}}"{{/isFirst}}>Before</a>
         </li>
         {{#nav}}
         <li{{#active}} class="active"{{/active}}>
@@ -9,7 +9,7 @@
         </li>
         {{/nav}}
         <li{{#isLast}} class="disabled"{{/isLast}}>
-            <a{{^isLast}} href="#/list/{{next}}"{{/isLast}}>Next</a>
+            <a{{^isLast}} href="#/list/{{next}}"{{/isLast}}>Later</a>
         </li>
     </ul>
 </div>

@@ -35,8 +35,7 @@
         "method": "GET",
         "query": {
             "skip": "0",
-            "limit": "20",
-            "descending": "true"
+            "limit": "20"
         }
     },
     {
@@ -46,18 +45,14 @@
         "query": {
             "skip": "0",
             "limit": "20",
-            "startkey": [":channel",{}],
-            "endkey": [":channel"],
-            "descending": "true"
+            "startkey": [":channel"],
+            "endkey": [":channel", {}]
         }
     },
     {
         "from": "all/:skip/:limit",
         "to": "_view/all",
-        "method": "GET",
-        "query": {
-            "descending": "true"
-        }
+        "method": "GET"
     },
     {
         "from": "new",

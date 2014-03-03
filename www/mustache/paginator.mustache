@@ -10,7 +10,8 @@
     </thead>
     <tbody>
         {{#rows}}
-        <tr style="cursor:pointer" onclick="window.location.hash='#/record/{{id}}'">
+        <tr style="cursor:pointer{{#h_highlighted}};background-color:#FFB865{{/h_highlighted}}"
+            onclick="window.location.hash='#/record/{{currentPage}}/{{id}}'">
             <td style="white-space: nowrap">{{#h_dateTimeList}}{{value.timestamp}}{{/h_dateTimeList}}</td>
             <td>{{value.channel}}</td>
             <td>{{value.message}}</td>
