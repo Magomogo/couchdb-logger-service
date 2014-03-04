@@ -27,5 +27,5 @@ Usage
 Webinterface is located at http://127.0.0.1:5984/logger-application/_design/main/_rewrite/
 
 To record an event just POST it to http://127.0.0.1:5984/logger-application/_design/main/_rewrite/new as JSON. Note
-that "message" and "channel" are mandatory values.
+that "message" and "channel" are mandatory values. Each event will be marked with current timestamp.
 
