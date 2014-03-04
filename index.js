@@ -63,7 +63,7 @@
 
             $.when(
                 getTotalPagesPromise(),
-                renderer.loadTemplates()
+                renderer.loadTemplates($)
             ).then(function (resp) {
                 router.init('list/' + resp);
             });

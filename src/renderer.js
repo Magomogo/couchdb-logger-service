@@ -3,7 +3,6 @@
 
     var templates = {},
         rowsPerPage = 20,
-        $ = require('jquery-commonjs'),
         mustache = require('mustache'),
         moment = require('moment'),
         definePageNav = require('./definePageNav.js');
@@ -89,7 +88,7 @@
 
     module.exports = {
 
-        loadTemplates: function () {
+        loadTemplates: function ($) {
 
             return $.when(
                 $.get('mustache/list.mustache', function (template) {
