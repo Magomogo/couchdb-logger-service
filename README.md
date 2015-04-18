@@ -3,7 +3,7 @@ couchdb-logger-service
 
 [![Build Status](https://travis-ci.org/Magomogo/couchdb-logger-service.png)](https://travis-ci.org/Magomogo/couchdb-logger-service)
 
-Restful event logging service
+This is a restful event logging service. A pure couchdb web application. I mean it stores events in the couchdb and provides web interface to see them using couchdb as a webserver.
 
 Installation
 ------------
